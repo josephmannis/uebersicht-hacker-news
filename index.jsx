@@ -74,15 +74,22 @@ const getStoriesForPage = async (pageNumber) => {
   return fetchStoriesInRange(end - storiesPerPage, end);
 }
 
+const onPageChanaged = (page, dispatch) => {
+  dispatch({type: 'UPDATE_PAGE', page: page}); 
+  getStoriesForPage(page)
+  .then(data => {
+    dispatch({ type: 'FETCH_SUCCEEDED', data: data})
+  })
+  .catch(err => dispatch({ type: 'FETCH_FAILED', error: err}));
+}
+
 export const initialState = {
   output: 'Fetching...',
   page: 1,
 }
 
 export const command = async dispatch => {
-  getStoriesForPage(initialState.page)
-    .then(data => dispatch({ type: 'FETCH_SUCCEEDED', data: data}))
-    .catch(err => dispatch({ type: 'FETCH_FAILED', error: err}));
+  onPageChanaged(initialState.page, dispatch);
 };
 
 export const updateState = (event, previousState) => {
@@ -170,15 +177,6 @@ const PageTicker = ({currentPage, onPageChanged}) => (
     <TickerButton onClick={() => onPageChanged(currentPage + 1)}>{'+'}</TickerButton>
   </div>
 )
-
-const onPageChanaged = (page, dispatch) => {
-  dispatch({type: 'UPDATE_PAGE', page: page}); 
-  getStoriesForPage(page)
-  .then(data => {
-    dispatch({ type: 'FETCH_SUCCEEDED', data: data})
-  })
-  .catch(err => dispatch({ type: 'FETCH_FAILED', error: err}));
-}
 
 export const render = ({ data = [], error = '', page }, dispatch) => (
   error ? (

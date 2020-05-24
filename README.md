@@ -6,7 +6,7 @@
 
 ### Installation
 
-Add the extracted widget to your widgets folder.
+Download the latest version from the releases tab and add the extracted widget to your widgets folder.
 
 ### Übersicht, Accessibility, and clicking links
 
