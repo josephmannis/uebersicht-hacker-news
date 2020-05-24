@@ -2,7 +2,6 @@
 
 [http://tracesof.net/uebersicht/](http://tracesof.net/uebersicht/)
 
-![Hacker News Top Stories](screenshot.png)
 
 ### Installation
 
